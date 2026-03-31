@@ -1,7 +1,7 @@
 
 # MVP Marketplace — Documentação
 
-Documentação oficial do MVP Marketplace.
+Documentação oficial do Projeto MVP Marketplace.
 
 ## Estrutura
 /docs
