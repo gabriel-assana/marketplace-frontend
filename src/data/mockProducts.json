@@ -1,0 +1,495 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "iPhone 14 Pro Max",
+      "description": "Smartphone Apple com 256GB",
+      "price": 7999.00,
+      "imageUrl": "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=400&h=400&fit=crop",
+      "category": "Eletrônicos",
+      "condition": "Novo",
+      "stock": 5,
+      "location": "São Paulo, SP",
+      "specifications": {
+        "Marca": "Apple",
+        "Modelo": "iPhone 14 Pro Max",
+        "Armazenamento": "256GB",
+        "Cor": "Roxo Profundo",
+        "Tela": "6.7 polegadas Super Retina XDR",
+        "Câmera": "48MP + 12MP + 12MP",
+        "Processador": "A16 Bionic",
+        "Bateria": "4323 mAh"
+      },
+      "seller": {
+        "name": "João Silva",
+        "email": "joao.silva@email.com",
+        "phone": "(11) 98765-4321",
+        "rating": 4.8,
+        "totalSales": 127
+      }
+    },
+    {
+      "id": 2,
+      "title": "Notebook Dell Inspiron",
+      "description": "Intel i7, 16GB RAM, 512GB SSD",
+      "price": 4500.00,
+      "imageUrl": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=400&fit=crop",
+      "category": "Eletrônicos",
+      "condition": "Seminovo",
+      "stock": 3,
+      "location": "Rio de Janeiro, RJ",
+      "specifications": {
+        "Marca": "Dell",
+        "Modelo": "Inspiron 15 5000",
+        "Processador": "Intel Core i7-1165G7",
+        "Memória RAM": "16GB DDR4",
+        "Armazenamento": "512GB SSD NVMe",
+        "Tela": "15.6 polegadas Full HD",
+        "Placa de Vídeo": "Intel Iris Xe Graphics",
+        "Sistema Operacional": "Windows 11"
+      },
+      "seller": {
+        "name": "Maria Santos",
+        "email": "maria.santos@email.com",
+        "phone": "(21) 97654-3210",
+        "rating": 4.9,
+        "totalSales": 89
+      }
+    },
+    {
+      "id": 3,
+      "title": "Smart TV Samsung 55\"",
+      "description": "4K UHD, HDR, Smart Hub",
+      "price": 2899.00,
+      "imageUrl": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop",
+      "category": "Eletrônicos",
+      "condition": "Novo",
+      "stock": 8,
+      "location": "Belo Horizonte, MG",
+      "specifications": {
+        "Marca": "Samsung",
+        "Modelo": "Crystal UHD 55AU7700",
+        "Tamanho": "55 polegadas",
+        "Resolução": "4K UHD (3840 x 2160)",
+        "HDR": "Sim (HDR10+)",
+        "Smart TV": "Tizen OS",
+        "Conectividade": "Wi-Fi, Bluetooth, 3x HDMI, 2x USB",
+        "Som": "Dolby Digital Plus"
+      },
+      "seller": {
+        "name": "Pedro Costa",
+        "email": "pedro.costa@email.com",
+        "phone": "(31) 96543-2109",
+        "rating": 4.7,
+        "totalSales": 156
+      }
+    },
+    {
+      "id": 4,
+      "title": "Fone Bluetooth Sony",
+      "description": "Cancelamento de ruído ativo",
+      "price": 899.00,
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
+      "category": "Eletrônicos",
+      "seller": {
+        "name": "Ana Lima"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Tablet Samsung Galaxy",
+      "description": "10.5 polegadas, 128GB",
+      "price": 1799.00,
+      "imageUrl": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=400&h=400&fit=crop",
+      "category": "Eletrônicos",
+      "seller": {
+        "name": "Carlos Mendes"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Sofá 3 Lugares Retrátil",
+      "description": "Tecido suede, cor cinza",
+      "price": 2200.00,
+      "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop",
+      "category": "Móveis",
+      "seller": {
+        "name": "Fernanda Rocha"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Mesa de Jantar 6 Lugares",
+      "description": "Madeira maciça com cadeiras",
+      "price": 1850.00,
+      "imageUrl": "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&h=400&fit=crop",
+      "category": "Móveis",
+      "seller": {
+        "name": "Roberto Alves"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Guarda-Roupa 3 Portas",
+      "description": "Com espelho, cor branca",
+      "price": 1299.00,
+      "imageUrl": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&h=400&fit=crop",
+      "category": "Móveis",
+      "seller": {
+        "name": "Juliana Martins"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Rack para TV",
+      "description": "Até 60 polegadas, com LED",
+      "price": 599.00,
+      "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop",
+      "category": "Móveis",
+      "seller": {
+        "name": "Lucas Ferreira"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Cama Box Casal",
+      "description": "Com colchão ortopédico",
+      "price": 1699.00,
+      "imageUrl": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=400&fit=crop",
+      "category": "Móveis",
+      "seller": {
+        "name": "Beatriz Souza"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Camiseta Básica Premium",
+      "description": "100% algodão, várias cores",
+      "price": 79.90,
+      "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
+      "category": "Roupas",
+      "seller": {
+        "name": "Camila Oliveira"
+      }
+    },
+    {
+      "id": 12,
+      "title": "Calça Jeans Skinny",
+      "description": "Elastano, modelagem perfeita",
+      "price": 189.90,
+      "imageUrl": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop",
+      "category": "Roupas",
+      "seller": {
+        "name": "Rafael Santos"
+      }
+    },
+    {
+      "id": 13,
+      "title": "Jaqueta de Couro",
+      "description": "Couro legítimo, forrada",
+      "price": 599.00,
+      "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop",
+      "category": "Roupas",
+      "seller": {
+        "name": "Thiago Ribeiro"
+      }
+    },
+    {
+      "id": 14,
+      "title": "Vestido Longo Floral",
+      "description": "Tecido leve, estampa exclusiva",
+      "price": 249.90,
+      "imageUrl": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+      "category": "Roupas",
+      "seller": {
+        "name": "Patricia Lima"
+      }
+    },
+    {
+      "id": 15,
+      "title": "Tênis Esportivo Nike",
+      "description": "Corrida, amortecimento Air",
+      "price": 499.90,
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
+      "category": "Roupas",
+      "seller": {
+        "name": "Gabriel Costa"
+      }
+    },
+    {
+      "id": 16,
+      "title": "O Senhor dos Anéis - Box",
+      "description": "Trilogia completa, capa dura",
+      "price": 149.90,
+      "imageUrl": "https://images.unsplash.com/photo-1621351183012-e2f9972dd9bf?w=400&h=400&fit=crop",
+      "category": "Livros",
+      "seller": {
+        "name": "Mariana Dias"
+      }
+    },
+    {
+      "id": 17,
+      "title": "Harry Potter - Coleção",
+      "description": "7 livros, edição especial",
+      "price": 299.90,
+      "imageUrl": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?w=400&h=400&fit=crop",
+      "category": "Livros",
+      "seller": {
+        "name": "Bruno Carvalho"
+      }
+    },
+    {
+      "id": 18,
+      "title": "1984 - George Orwell",
+      "description": "Clássico da literatura",
+      "price": 39.90,
+      "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+      "category": "Livros",
+      "seller": {
+        "name": "Amanda Silva"
+      }
+    },
+    {
+      "id": 19,
+      "title": "Box Agatha Christie",
+      "description": "10 melhores romances policiais",
+      "price": 189.90,
+      "imageUrl": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=400&fit=crop",
+      "category": "Livros",
+      "seller": {
+        "name": "Rodrigo Pinto"
+      }
+    },
+    {
+      "id": 20,
+      "title": "Sapiens - Yuval Harari",
+      "description": "Uma breve história da humanidade",
+      "price": 54.90,
+      "imageUrl": "https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=400&fit=crop",
+      "category": "Livros",
+      "seller": {
+        "name": "Larissa Moura"
+      }
+    },
+    {
+      "id": 21,
+      "title": "Bicicleta Mountain Bike",
+      "description": "21 marchas, aro 29",
+      "price": 1899.00,
+      "imageUrl": "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=400&h=400&fit=crop",
+      "category": "Esportes",
+      "seller": {
+        "name": "Felipe Araújo"
+      }
+    },
+    {
+      "id": 22,
+      "title": "Kit Halteres 20kg",
+      "description": "Anilhas e barras ajustáveis",
+      "price": 299.00,
+      "imageUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=400&fit=crop",
+      "category": "Esportes",
+      "seller": {
+        "name": "Gustavo Nunes"
+      }
+    },
+    {
+      "id": 23,
+      "title": "Esteira Elétrica",
+      "description": "12 programas, dobrável",
+      "price": 2499.00,
+      "imageUrl": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=400&h=400&fit=crop",
+      "category": "Esportes",
+      "seller": {
+        "name": "Daniela Freitas"
+      }
+    },
+    {
+      "id": 24,
+      "title": "Bola de Futebol Oficial",
+      "description": "Tamanho oficial, costurada",
+      "price": 129.90,
+      "imageUrl": "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=400&h=400&fit=crop",
+      "category": "Esportes",
+      "seller": {
+        "name": "Vinicius Barros"
+      }
+    },
+    {
+      "id": 25,
+      "title": "Raquete de Tênis Wilson",
+      "description": "Profissional, com capa",
+      "price": 799.00,
+      "imageUrl": "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&h=400&fit=crop",
+      "category": "Esportes",
+      "seller": {
+        "name": "Isabela Campos"
+      }
+    },
+    {
+      "id": 26,
+      "title": "Kit Maquiagem Completo",
+      "description": "50 itens, maleta profissional",
+      "price": 399.00,
+      "imageUrl": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop",
+      "category": "Beleza",
+      "seller": {
+        "name": "Vanessa Rodrigues"
+      }
+    },
+    {
+      "id": 27,
+      "title": "Perfume Importado 100ml",
+      "description": "Fragrância amadeirada",
+      "price":  289.90,
+      "imageUrl": "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop",
+      "category": "Beleza",
+      "seller": {
+        "name": "Eduardo Lopes"
+      }
+    },
+    {
+      "id": 28,
+      "title": "Secador de Cabelo Profissional",
+      "description": "2000W, íons negativos",
+      "price": 199.90,
+      "imageUrl": "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=400&fit=crop",
+      "category": "Beleza",
+      "seller": {
+        "name": "Priscila Torres"
+      }
+    },
+    {
+      "id": 29,
+      "title": "Kit Skincare Facial",
+      "description": "Limpeza, tônico e hidratante",
+      "price": 159.90,
+      "imageUrl": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop",
+      "category": "Beleza",
+      "seller": {
+        "name": "Renata Gomes"
+      }
+    },
+    {
+      "id": 30,
+      "title": "Chapinha Titanium",
+      "description": "Temperatura ajustável, bivolt",
+      "price": 249.90,
+      "imageUrl": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=400&fit=crop",
+      "category": "Beleza",
+      "seller": {
+        "name": "Tatiana Melo"
+      }
+    },
+    {
+      "id": 31,
+      "title": "Boneca Barbie Dreamhouse",
+      "description": "Casa dos sonhos com acessórios",
+      "price": 599.90,
+      "imageUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+      "category": "Brinquedos",
+      "seller": {
+        "name": "Carla Nascimento"
+      }
+    },
+    {
+      "id": 32,
+      "title": "LEGO Creator Expert",
+      "description": "3000 peças, modelo avançado",
+      "price": 899.90,
+      "imageUrl": "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=400&h=400&fit=crop",
+      "category": "Brinquedos",
+      "seller": {
+        "name": "Marcos Pereira"
+      }
+    },
+    {
+      "id": 33,
+      "title": "Carrinho Controle Remoto",
+      "description": "4x4, à prova d'água",
+      "price": 299.90,
+      "imageUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+      "category": "Brinquedos",
+      "seller": {
+        "name": "André Machado"
+      }
+    },
+    {
+      "id": 34,
+      "title": "Quebra-Cabeça 2000 Peças",
+      "description": "Paisagem europeia",
+      "price": 89.90,
+      "imageUrl": "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=400&fit=crop",
+      "category": "Brinquedos",
+      "seller": {
+        "name": "Silvia Ramos"
+      }
+    },
+    {
+      "id": 35,
+      "title": "Jogo de Tabuleiro Monopoly",
+      "description": "Edição clássica brasileira",
+      "price": 149.90,
+      "imageUrl": "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=400&fit=crop",
+      "category": "Brinquedos",
+      "seller": {
+        "name": "Henrique Vieira"
+      }
+    },
+    {
+      "id": 36,
+      "title": "Café Especial 1kg",
+      "description": "Grãos selecionados, torra média",
+      "price": 89.90,
+      "imageUrl": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=400&fit=crop",
+      "category": "Alimentos",
+      "seller": {
+        "name": "José Carlos"
+      }
+    },
+    {
+      "id": 37,
+      "title": "Mel Orgânico 500g",
+      "description": "Puro, direto do produtor",
+      "price": 45.90,
+      "imageUrl": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=400&fit=crop",
+      "category": "Alimentos",
+      "seller": {
+        "name": "Maria Helena"
+      }
+    },
+    {
+      "id": 38,
+      "title": "Azeite Extra Virgem 500ml",
+      "description": "Primeira prensagem a frio",
+      "price": 79.90,
+      "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=400&fit=crop",
+      "category": "Alimentos",
+      "seller": {
+        "name": "Antonio Ferraz"
+      }
+    },
+    {
+      "id": 39,
+      "title": "Chocolate Artesanal 70%",
+      "description": "Cacau premium, sem açúcar",
+      "price": 29.90,
+      "imageUrl": "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=400&fit=crop",
+      "category": "Alimentos",
+      "seller": {
+        "name": "Luciana Batista"
+      }
+    },
+    {
+      "id": 40,
+      "title": "Castanhas Mistas 200g",
+      "description": "Mix premium sem sal",
+      "price": 39.90,
+      "imageUrl": "https://images.unsplash.com/photo-1599599810694-57a2ca8276a8?w=400&h=400&fit=crop",
+      "category": "Alimentos",
+      "seller": {
+        "name": "Ricardo Moreira"
+      }
+    }
+  ]
+}
