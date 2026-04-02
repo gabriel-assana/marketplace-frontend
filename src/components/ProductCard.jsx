@@ -32,7 +32,8 @@ function ProductCard({ product }) {
       }}
       cursor='pointer'
       borderWidth='1px'
-      borderColor='gray.200'
+      borderColor='border'
+      bg='cardBg'
       onClick={handleClick}
     >
       <Image

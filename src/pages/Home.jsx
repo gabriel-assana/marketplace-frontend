@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon, CloseIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import ProductCard from '../components/ProductCard'
-import mockData from '../data/mockProducts.json'
+import { getProducts } from '../services/productService'
 
 function Home() {
   const [products, setProducts] = useState([])
@@ -28,10 +28,25 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [sortOrder, setSortOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(true)
   const productsPerPage = 12
 
   useEffect(() => {
-    setProducts(mockData.products)
+    const loadProducts = async () => {
+      setLoading(true)
+      try {
+        const result = await getProducts()
+        if (result.success) {
+          setProducts(result.products)
+        }
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadProducts()
   }, [])
 
   // Extrair categorias únicas dos produtos
@@ -144,14 +159,14 @@ function Home() {
       </VStack>
 
       {/* Seção de Filtros */}
-      <Box 
-        bg='white' 
-        p={6} 
-        borderRadius='lg' 
-        shadow='md' 
+      <Box
+        bg='cardBg'
+        p={6}
+        borderRadius='lg'
+        shadow='md'
         mb={8}
         borderWidth='1px'
-        borderColor='gray.200'
+        borderColor='border'
       >
         <VStack spacing={4} align='stretch'>
           {/* Linha 1: Busca */}
@@ -253,19 +268,29 @@ function Home() {
       </Box>
 
       {/* Contador de Resultados e Informações de Paginação */}
-      <Flex justify='space-between' align='center' mb={6} flexWrap='wrap' gap={2}>
-        <Text fontSize='lg' color='text' fontWeight='semibold'>
-          {filteredProducts.length} {filteredProducts.length === 1 ? 'produto encontrado' : 'produtos encontrados'}
-        </Text>
-        {totalPages > 1 && (
-          <Text fontSize='sm' color='gray.600'>
-            Página {currentPage} de {totalPages}
+      {!loading && (
+        <Flex justify='space-between' align='center' mb={6} flexWrap='wrap' gap={2}>
+          <Text fontSize='lg' color='text' fontWeight='semibold'>
+            {filteredProducts.length} {filteredProducts.length === 1 ? 'produto encontrado' : 'produtos encontrados'}
           </Text>
-        )}
-      </Flex>
+          {totalPages > 1 && (
+            <Text fontSize='sm' color='gray.600'>
+              Página {currentPage} de {totalPages}
+            </Text>
+          )}
+        </Flex>
+      )}
 
-      {/* Grid de Produtos */}
-      {filteredProducts.length > 0 ? (
+      {/* Conteúdo principal */}
+      {loading ? (
+        <Center py={20}>
+          <VStack spacing={4}>
+            <Text color='text' fontSize='lg'>
+              Carregando produtos...
+            </Text>
+          </VStack>
+        </Center>
+      ) : filteredProducts.length > 0 ? (
         <>
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 3, lg: 4 }}

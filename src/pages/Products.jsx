@@ -17,36 +17,59 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Table,
-  Thead,
   Tbody,
   Tr,
-  Th,
   Td,
   TableContainer,
   Avatar,
-  useToast
+  useToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay
 } from '@chakra-ui/react'
-import { ArrowBackIcon, StarIcon, PhoneIcon, EmailIcon } from '@chakra-ui/icons'
-import React, { useState, useEffect } from 'react'
+import { ArrowBackIcon, StarIcon, PhoneIcon, EmailIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import mockData from '../data/mockProducts.json'
+import { getProductById, deleteProduct } from '../services/productService'
+import { useAuth } from '../contexts/AuthContext'
 
 function Products() {
   const { id } = useParams()
   const navigate = useNavigate()
   const toast = useToast()
+  const { user, isAuthenticated } = useAuth()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const cancelRef = useRef()
+
+  // Verifica se o usuário é o dono do produto
+  const isOwner = isAuthenticated && user && product && product.seller.id === user.id
 
   useEffect(() => {
-    // Simular carregamento
-    setLoading(true)
-    const foundProduct = mockData.products.find(p => p.id === parseInt(id))
-    
-    setTimeout(() => {
-      setProduct(foundProduct)
-      setLoading(false)
-    }, 300)
+    const loadProduct = async () => {
+      setLoading(true)
+      try {
+        const result = await getProductById(id)
+        
+        if (result.success) {
+          setProduct(result.product)
+        } else {
+          setProduct(null)
+        }
+      } catch (error) {
+        console.error('Erro ao carregar produto:', error)
+        setProduct(null)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadProduct()
   }, [id])
 
   const formatPrice = (price) => {
@@ -64,6 +87,55 @@ function Products() {
       duration: 3000,
       isClosable: true,
     })
+  }
+
+  const handleEdit = () => {
+    navigate(`/products/${id}/edit`)
+  }
+
+  const handleDeleteClick = () => {
+    setIsDeleteDialogOpen(true)
+  }
+
+  const handleDeleteConfirm = async () => {
+    setIsDeleting(true)
+    try {
+      const result = await deleteProduct(id)
+      
+      if (result.success) {
+        toast({
+          title: 'Produto excluído',
+          description: 'Seu anúncio foi removido com sucesso.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        navigate('/')
+      } else {
+        toast({
+          title: 'Erro ao excluir',
+          description: result.error || 'Não foi possível excluir o produto.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    } catch (error) {
+      toast({
+        title: 'Erro',
+        description: 'Ocorreu um erro inesperado.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    } finally {
+      setIsDeleting(false)
+      setIsDeleteDialogOpen(false)
+    }
+  }
+
+  const handleDeleteCancel = () => {
+    setIsDeleteDialogOpen(false)
   }
 
   if (loading) {
@@ -126,8 +198,8 @@ function Products() {
             borderRadius='lg'
             overflow='hidden'
             borderWidth='1px'
-            borderColor='gray.200'
-            bg='white'
+            borderColor='border'
+            bg='cardBg'
           >
             <Image
               src={product.imageUrl}
@@ -191,15 +263,40 @@ function Products() {
               </Text>
             </Box>
 
-            {/* Botão de Contato */}
-            <Button
-              colorScheme='purple'
-              size='lg'
-              w='full'
-              onClick={handleContact}
-            >
-              Entrar em Contato
-            </Button>
+            {/* Botões de Ação */}
+            {isOwner ? (
+              <VStack spacing={3} w='full'>
+                <HStack spacing={3} w='full'>
+                  <Button
+                    leftIcon={<EditIcon />}
+                    colorScheme='blue'
+                    size='lg'
+                    flex={1}
+                    onClick={handleEdit}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    leftIcon={<DeleteIcon />}
+                    colorScheme='red'
+                    size='lg'
+                    flex={1}
+                    onClick={handleDeleteClick}
+                  >
+                    Excluir
+                  </Button>
+                </HStack>
+              </VStack>
+            ) : (
+              <Button
+                colorScheme='purple'
+                size='lg'
+                w='full'
+                onClick={handleContact}
+              >
+                Entrar em Contato
+              </Button>
+            )}
           </VStack>
         </GridItem>
       </Grid>
@@ -207,11 +304,11 @@ function Products() {
       {/* Especificações Técnicas */}
       {product.specifications && (
         <Box
-          bg='white'
+          bg='cardBg'
           p={6}
           borderRadius='lg'
           borderWidth='1px'
-          borderColor='gray.200'
+          borderColor='border'
           mb={8}
         >
           <Heading size='lg' mb={4} color='heading'>
@@ -237,11 +334,11 @@ function Products() {
       {/* Informações do Vendedor */}
       {product.seller && (
         <Box
-          bg='white'
+          bg='cardBg'
           p={6}
           borderRadius='lg'
           borderWidth='1px'
-          borderColor='gray.200'
+          borderColor='border'
         >
           <Heading size='lg' mb={4} color='heading'>
             Informações do Vendedor
@@ -289,6 +386,40 @@ function Products() {
           </Flex>
         </Box>
       )}
+
+      {/* Dialog de Confirmação de Exclusão */}
+      <AlertDialog
+        isOpen={isDeleteDialogOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={handleDeleteCancel}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Excluir Produto
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={handleDeleteCancel}>
+                Cancelar
+              </Button>
+              <Button
+                colorScheme='red'
+                onClick={handleDeleteConfirm}
+                ml={3}
+                isLoading={isDeleting}
+                loadingText='Excluindo...'
+              >
+                Excluir
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Container>
   )
 }
