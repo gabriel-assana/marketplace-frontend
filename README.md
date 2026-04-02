@@ -13,7 +13,7 @@ Marketplace desenvolvido com React + Vite, utilizando Chakra UI para interface e
 
 ## 📋 Pré-requisitos
 
-- Node.js (versão 16 ou superior recomendada)
+- Node.js (v24.14.1)
 - npm ou yarn
 
 ## 🔧 Instalação e Configuração
