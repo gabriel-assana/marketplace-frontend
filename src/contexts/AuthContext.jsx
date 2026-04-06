@@ -132,5 +132,3 @@ export function useAuth() {
 }
 
 export default AuthContext
-
-// Made with Bob

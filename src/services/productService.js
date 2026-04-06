@@ -1,37 +1,53 @@
 // Service de produtos
-// Camada de abstração entre componentes e API/Mock
+// Camada de abstração entre componentes e API
 
-import {
-  mockGetProducts,
-  mockGetProductById,
-  mockCreateProduct,
-  mockUpdateProduct,
-  mockDeleteProduct,
-  mockGetProductsByUser
-} from '../mocks/mockProducts'
 import { getCurrentUser, getToken } from './authService'
+import { API_ENDPOINTS, apiRequest, getAuthHeaders } from '../config/api'
 
-// Flag para alternar entre mock e API real
-// Quando a API estiver pronta, mude para false
-const USE_MOCK = true
+// Helper para transformar dados do backend para o formato do frontend
+const transformProduct = (product) => {
+  return {
+    id: product.id,
+    title: product.titulo,
+    description: product.descricao,
+    price: parseFloat(product.preço || product.preco || 0),
+    imageUrl: product.urlImagem || 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400&h=250&fit=crop',
+    category: product.categoria || 'Sem categoria',
+    seller: {
+      id: product.usuario_id || 0,
+      name: product.usuario || 'Vendedor'
+    }
+  }
+}
 
 export const getProducts = async (searchQuery = '') => {
   try {
-    let response
-
-    if (USE_MOCK) {
-      response = await mockGetProducts(searchQuery)
+    const url = searchQuery
+      ? `${API_ENDPOINTS.products.list}?nome=${encodeURIComponent(searchQuery)}`
+      : API_ENDPOINTS.products.list
+    
+    const result = await apiRequest(url, {
+      method: 'GET'
+    })
+    
+    if (result.success) {
+      // A API retorna { total: number, produtos: array }
+      const rawProducts = result.data.produtos || result.data.results || result.data
+      const products = Array.isArray(rawProducts)
+        ? rawProducts.map(transformProduct)
+        : []
+      
+      return {
+        success: true,
+        products,
+        total: result.data.total || products.length
+      }
     } else {
-      // TODO: Implementar chamada à API real
-      // const url = searchQuery 
-      //   ? `/api/products?name=${encodeURIComponent(searchQuery)}`
-      //   : '/api/products'
-      // const res = await fetch(url)
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      return {
+        success: false,
+        error: result.error
+      }
     }
-
-    return response
   } catch (error) {
     console.error('Erro ao buscar produtos:', error)
     return {
@@ -43,18 +59,21 @@ export const getProducts = async (searchQuery = '') => {
 
 export const getProductById = async (id) => {
   try {
-    let response
-
-    if (USE_MOCK) {
-      response = await mockGetProductById(id)
+    const result = await apiRequest(API_ENDPOINTS.products.detail(id), {
+      method: 'GET'
+    })
+    
+    if (result.success) {
+      return {
+        success: true,
+        product: transformProduct(result.data)
+      }
     } else {
-      // TODO: Implementar chamada à API real
-      // const res = await fetch(`/api/products/${id}`)
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      return {
+        success: false,
+        error: result.error
+      }
     }
-
-    return response
   } catch (error) {
     console.error('Erro ao buscar produto:', error)
     return {
@@ -75,26 +94,34 @@ export const createProduct = async (productData) => {
       }
     }
 
-    let response
-
-    if (USE_MOCK) {
-      response = await mockCreateProduct(productData, user)
-    } else {
-      // TODO: Implementar chamada à API real
-      // const token = getToken()
-      // const res = await fetch('/api/products', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify(productData)
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+    // Transformar dados do frontend para o formato do backend
+    const backendData = {
+      titulo: productData.title,
+      descricao: productData.description,
+      preco: productData.price,
+      url_imagem: productData.imageUrl,
+      usuario: productData.userId || user.id,
+      categoria: productData.categoryId
     }
 
-    return response
+    const token = getToken()
+    const result = await apiRequest(API_ENDPOINTS.products.create, {
+      method: 'POST',
+      headers: getAuthHeaders(token),
+      body: JSON.stringify(backendData)
+    })
+    
+    if (result.success) {
+      return {
+        success: true,
+        product: transformProduct(result.data)
+      }
+    } else {
+      return {
+        success: false,
+        error: result.error
+      }
+    }
   } catch (error) {
     console.error('Erro ao criar produto:', error)
     return {
@@ -115,26 +142,34 @@ export const updateProduct = async (id, productData) => {
       }
     }
 
-    let response
-
-    if (USE_MOCK) {
-      response = await mockUpdateProduct(id, productData, user)
-    } else {
-      // TODO: Implementar chamada à API real
-      // const token = getToken()
-      // const res = await fetch(`/api/products/${id}`, {
-      //   method: 'PUT',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify(productData)
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+    // Transformar dados do frontend para o formato do backend
+    const backendData = {
+      titulo: productData.title,
+      descricao: productData.description,
+      preco: productData.price,
+      url_imagem: productData.imageUrl,
+      usuario: productData.userId || user.id,
+      categoria: productData.categoryId
     }
 
-    return response
+    const token = getToken()
+    const result = await apiRequest(API_ENDPOINTS.products.update(id), {
+      method: 'PUT',
+      headers: getAuthHeaders(token),
+      body: JSON.stringify(backendData)
+    })
+    
+    if (result.success) {
+      return {
+        success: true,
+        product: transformProduct(result.data)
+      }
+    } else {
+      return {
+        success: false,
+        error: result.error
+      }
+    }
   } catch (error) {
     console.error('Erro ao atualizar produto:', error)
     return {
@@ -155,24 +190,22 @@ export const deleteProduct = async (id) => {
       }
     }
 
-    let response
-
-    if (USE_MOCK) {
-      response = await mockDeleteProduct(id, user)
+    const token = getToken()
+    const result = await apiRequest(API_ENDPOINTS.products.delete(id), {
+      method: 'DELETE',
+      headers: getAuthHeaders(token)
+    })
+    
+    if (result.success) {
+      return {
+        success: true
+      }
     } else {
-      // TODO: Implementar chamada à API real
-      // const token = getToken()
-      // const res = await fetch(`/api/products/${id}`, {
-      //   method: 'DELETE',
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      return {
+        success: false,
+        error: result.error
+      }
     }
-
-    return response
   } catch (error) {
     console.error('Erro ao excluir produto:', error)
     return {
@@ -184,18 +217,28 @@ export const deleteProduct = async (id) => {
 
 export const getProductsByUser = async (userId) => {
   try {
-    let response
-
-    if (USE_MOCK) {
-      response = await mockGetProductsByUser(userId)
+    const result = await apiRequest(API_ENDPOINTS.products.byUser(userId), {
+      method: 'GET'
+    })
+    
+    if (result.success) {
+      // A API retorna { total: number, produtos: array }
+      const rawProducts = result.data.produtos || result.data.results || result.data
+      const products = Array.isArray(rawProducts)
+        ? rawProducts.map(transformProduct)
+        : []
+      
+      return {
+        success: true,
+        products,
+        total: result.data.total || products.length
+      }
     } else {
-      // TODO: Implementar chamada à API real
-      // const res = await fetch(`/api/products?userId=${userId}`)
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      return {
+        success: false,
+        error: result.error
+      }
     }
-
-    return response
   } catch (error) {
     console.error('Erro ao buscar produtos do usuário:', error)
     return {
@@ -217,5 +260,3 @@ export const getMyProducts = async () => {
 
   return getProductsByUser(user.id)
 }
-
-// Made with Bob

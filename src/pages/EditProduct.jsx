@@ -407,5 +407,3 @@ function EditProduct() {
 }
 
 export default EditProduct
-
-// Made with Bob

@@ -7,10 +7,7 @@ import {
   mockLogout,
   mockVerifyToken
 } from '../mocks/mockAuth'
-
-// Flag para alternar entre mock e API real
-// Quando a API estiver pronta, mude para false
-const USE_MOCK = true
+import { USE_MOCK, API_ENDPOINTS, apiRequest, getAuthHeaders } from '../config/api'
 
 // Chaves do localStorage
 const TOKEN_KEY = 'marketplace_token'
@@ -23,14 +20,24 @@ export const login = async (email, password) => {
     if (USE_MOCK) {
       response = await mockLogin(email, password)
     } else {
-      // TODO: Implementar chamada à API real
-      // const res = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email, password })
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      // Chamada à API real
+      const result = await apiRequest(API_ENDPOINTS.auth.login, {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+      })
+      
+      if (result.success) {
+        response = {
+          success: true,
+          token: result.data.token || result.data.access,
+          user: result.data.user || result.data
+        }
+      } else {
+        response = {
+          success: false,
+          error: result.error
+        }
+      }
     }
 
     if (response.success) {
@@ -56,14 +63,24 @@ export const signup = async (name, email, password) => {
     if (USE_MOCK) {
       response = await mockSignup(name, email, password)
     } else {
-      // TODO: Implementar chamada à API real
-      // const res = await fetch('/api/auth/signup', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ name, email, password })
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      // Chamada à API real
+      const result = await apiRequest(API_ENDPOINTS.auth.signup, {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password })
+      })
+      
+      if (result.success) {
+        response = {
+          success: true,
+          token: result.data.token || result.data.access,
+          user: result.data.user || result.data
+        }
+      } else {
+        response = {
+          success: false,
+          error: result.error
+        }
+      }
     }
 
     if (response.success) {
@@ -87,7 +104,14 @@ export const logout = async () => {
     if (USE_MOCK) {
       await mockLogout()
     } else {
-      // TODO: Implementar chamada à API real (se necessário)
+      // Chamada à API real (opcional)
+      const token = getToken()
+      if (token) {
+        await apiRequest(API_ENDPOINTS.auth.logout, {
+          method: 'POST',
+          headers: getAuthHeaders(token)
+        })
+      }
     }
 
     // Remove dados do localStorage
@@ -138,12 +162,23 @@ export const verifyToken = async () => {
     if (USE_MOCK) {
       response = await mockVerifyToken(token)
     } else {
-      // TODO: Implementar chamada à API real
-      // const res = await fetch('/api/auth/verify', {
-      //   headers: { 'Authorization': `Bearer ${token}` }
-      // })
-      // response = await res.json()
-      throw new Error('API real ainda não implementada')
+      // Chamada à API real
+      const result = await apiRequest(API_ENDPOINTS.auth.verify, {
+        method: 'GET',
+        headers: getAuthHeaders(token)
+      })
+      
+      if (result.success) {
+        response = {
+          success: true,
+          user: result.data.user || result.data
+        }
+      } else {
+        response = {
+          success: false,
+          error: result.error
+        }
+      }
     }
 
     if (response.success) {
@@ -168,5 +203,3 @@ export const verifyToken = async () => {
 export const updateCurrentUser = (user) => {
   localStorage.setItem(USER_KEY, JSON.stringify(user))
 }
-
-// Made with Bob

@@ -29,7 +29,7 @@ function Home() {
   const [sortOrder, setSortOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(true)
-  const productsPerPage = 12
+  const productsPerPage = 8
 
   useEffect(() => {
     const loadProducts = async () => {

@@ -50,6 +50,8 @@ function Products() {
   // Verifica se o usuário é o dono do produto
   const isOwner = isAuthenticated && user && product && product.seller.id === user.id
 
+  
+
   useEffect(() => {
     const loadProduct = async () => {
       setLoading(true)
@@ -426,4 +428,3 @@ function Products() {
 
 export default Products
 
-// Made with Bob
